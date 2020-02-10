@@ -12,21 +12,21 @@ https://docs.djangoproject.com/en/3.0/ref/settings/
 
 import os
 
+env = os.environ
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-IMAGE_DIR = BASE_DIR + "/image/"
+IMAGE_DIR = BASE_DIR + env.get("IMAGE_DIR", '/image/')
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/3.0/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = '#-ui^73e&h_*j18_r!*@__58_4e31%fwp1wj(-$257lkv&aq9#'
+SECRET_KEY = env.get("DJANGO_SECRET_KEY")
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = bool(int(env.get("DEBUG")))
 
-ALLOWED_HOSTS = []
-
+ALLOWED_HOSTS = [env.get("ALLOWED_HOST")]
 
 # Application definition
 CUSTOM_APP = [
@@ -78,21 +78,19 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'simple_todos.wsgi.application'
 
-
 # Database
 # https://docs.djangoproject.com/en/3.0/ref/settings/#databases
 
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'HOST': '192.168.64.2',
-        'PORT': 3306,
-        'NAME': 'simple_todos',
-        'USER': 'root',
-        'PASSWORD': 'park1733',
+        'HOST': env.get("DB_HOST", "192.168.64.2"),
+        'PORT': env.get("DB_PORT", 3306),
+        'NAME': env.get("DB_NAME", 'simple_todos'),
+        'USER': env.get("DB_USER", 'root'),
+        'PASSWORD': env.get("DB_PASSWORD", 'park1733'),
     }
 }
-
 
 # Password validation
 # https://docs.djangoproject.com/en/3.0/ref/settings/#auth-password-validators
@@ -112,7 +110,6 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
-
 # Internationalization
 # https://docs.djangoproject.com/en/3.0/topics/i18n/
 
@@ -125,7 +122,6 @@ USE_I18N = True
 USE_L10N = True
 
 USE_TZ = True
-
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.0/howto/static-files/
