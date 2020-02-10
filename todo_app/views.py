@@ -8,6 +8,7 @@ from rest_framework.generics import RetrieveUpdateDestroyAPIView, ListCreateAPIV
 from rest_framework.response import Response
 
 from simple_todos.settings import IMAGE_DIR
+from todo_app.auth import CustomPerm
 from todo_app.models import Todo
 from todo_app.serializers import TodoSerializer
 
@@ -17,6 +18,7 @@ logger = logging.getLogger(__name__)
 class TodoRUDView(RetrieveUpdateDestroyAPIView):
     queryset = Todo.objects.all()
     serializer_class = TodoSerializer
+    permission_classes = [CustomPerm]
     lookup_field = 'pk'
 
     def update(self, request, *args, **kwargs):

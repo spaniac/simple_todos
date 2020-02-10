@@ -23,14 +23,3 @@ class Todo(models.Model):
         createdAt: "Time",
         updatedAt: "Time"
     """
-
-#
-# class Image(models.Model):
-#     id = models.BigAutoField(primary_key=True)
-#     image_url = models.TextField(verbose_name='Image that will be uploaded')
-#     todo_id = models.BigIntegerField(verbose_name='Related Todo ID')
-#     created_at = models.DateTimeField(verbose_name="Datetime when todo is created", auto_now_add=True)
-#     updated_at = models.DateTimeField(verbose_name="Datetime when todo is updated", auto_now=True)
-#
-#     class Meta:
-#         db_table = 'image'
